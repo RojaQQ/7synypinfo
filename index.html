@@ -1,0 +1,424 @@
+
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Файлдық функциялармен жұмыс - Презентация</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #e0f2fe; /* Light blue background */
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            border-left: 5px solid #3b82f6;
+            white-space: pre; /* Кодтың жолдарын сақтау және бөлінбеуі үшін */
+            width: 100%;
+        }
+
+        .term-box {
+            background-color: #fff;
+            border-left: 5px solid #10b981;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn {
+            transition: all 0.2s;
+        }
+        .nav-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Custom scrollbar for code blocks */
+        .code-block::-webkit-scrollbar {
+            height: 8px;
+        }
+        .code-block::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        .code-block::-webkit-scrollbar-thumb {
+            background: #475569; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Main Container -->
+    <div class="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col" style="height: 85vh;">
+        
+        <!-- Header / Progress Bar -->
+        <div class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md z-10">
+            <h1 class="font-bold text-lg"><i class="fas fa-laptop-code mr-2"></i>Информатика 7-сынып</h1>
+            <div class="text-sm font-semibold">Слайд <span id="current-slide">1</span> / <span id="total-slides">9</span></div>
+        </div>
+        <div class="w-full bg-blue-200 h-1.5">
+            <div id="progress-bar" class="bg-yellow-400 h-1.5 transition-all duration-300" style="width: 10%;"></div>
+        </div>
+
+        <!-- Slides Content Area -->
+        <div class="flex-1 p-8 overflow-y-auto bg-gray-50 flex flex-col justify-center items-center relative">
+            
+            <!-- Slide 1: Title -->
+            <div class="slide active flex-col text-center w-full" data-index="1">
+                <div class="mb-6">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded uppercase tracking-wide">Сабақ тақырыбы</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 leading-tight">Файлдық функциялармен жұмыс</h2>
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 inline-block">
+                    <p class="text-gray-500 mb-2 font-semibold">Пән мұғалімі:</p>
+                    <h3 class="text-2xl text-blue-700 font-bold">Еламанов Рахат Байканурович</h3>
+                </div>
+                <div class="mt-12 text-gray-400">
+                    <i class="fas fa-chevron-right animate-bounce"></i> Бастау үшін "Алға" басыңыз
+                </div>
+            </div>
+
+            <!-- Slide 2: Intro -->
+            <div class="slide flex-col w-full" data-index="2">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2 inline-block">Кіріспе және Файл түрлері</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 w-full">
+                    <div class="term-box">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2"><i class="fas fa-file-alt text-blue-500 mr-2"></i>Мәтіндік файлдар</h3>
+                        <p class="text-gray-600">Алдыңғы сабақтарда біз мәтіндік файлдармен жұмыс істеуді үйрендік (ашу, оқу, жазу).</p>
+                    </div>
+                    <div class="term-box border-l-purple-500">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2"><i class="fas fa-file-code text-purple-500 mr-2"></i>Бинарлық файлдар</h3>
+                        <p class="text-gray-600">Python-да бинарлық файлдармен жұмыс істеу үшін <code class="bg-gray-200 px-1 rounded text-red-500">open()</code> функциясына <code class="bg-gray-200 px-1 rounded text-red-500">'b'</code> режимін қосамыз (мысалы, <code class="bg-gray-200 px-1 rounded">'rb'</code> – бинарлық оқу).</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded w-full">
+                    <p class="text-yellow-800 font-semibold"><i class="fas fa-exclamation-triangle mr-2"></i>Ескерту:</p>
+                    <p class="text-yellow-700">7-сыныпта біз негізінен мәтіндік файлдардағы арнайы функцияларды қарастырамыз.</p>
+                </div>
+            </div>
+
+            <!-- Slide 3: readline() -->
+            <div class="slide flex-col w-full" data-index="3">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">1. readline() функциясы</h2>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md w-full mb-6">
+                    <p class="text-lg text-gray-700 mb-4"><strong>Анықтамасы:</strong> Файлдағы жолдарды жеке-жеке оқу үшін қолданылады.</p>
+                    
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <span class="font-bold text-gray-800">readline()</span> <span class="text-gray-500 text-sm">(жақша іші бос)</span>
+                                <p class="text-gray-600">Бір жолды толығымен оқиды (немесе жолдың қалғанын).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <span class="font-bold text-gray-800">readline(n)</span> <span class="text-gray-500 text-sm">(жақшада сан тұрса)</span>
+                                <p class="text-gray-600">Жолдың алғашқы <strong>n</strong> символын ғана оқиды.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <p class="text-sm text-gray-500 italic"><i class="fas fa-info-circle mr-1"></i>Маңызды: Файлдан оқыған деректерді жаңа жолға жазғанда '\n' (жаңа жол) символы ескерілуі керек.</p>
+            </div>
+
+            <!-- Slide 4: seek() -->
+            <div class="slide flex-col w-full" data-index="4">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">2. seek() функциясы</h2>
+                
+                <div class="flex flex-col md:flex-row gap-6 items-center w-full">
+                    <div class="w-full md:w-1/2 space-y-4">
+                        <div class="term-box border-l-orange-500">
+                            <h3 class="font-bold text-lg mb-1">Қызметі</h3>
+                            <p>Файлдағы меңзерді (курсорды) қажетті орынға ауыстыру.</p>
+                        </div>
+                        <div class="term-box border-l-orange-500">
+                            <h3 class="font-bold text-lg mb-1">Синтаксис</h3>
+                            <code class="text-xl text-blue-600 font-bold bg-gray-100 px-2 py-1 rounded">file.seek(n)</code>
+                            <p class="text-sm text-gray-500 mt-1">мұндағы <strong>n</strong> – меңзер тұратын орын нөмірі (байтпен).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2 bg-gray-800 text-white p-6 rounded-lg shadow-lg relative">
+                        <div class="absolute -top-3 -right-3 bg-yellow-400 text-black font-bold px-3 py-1 rounded-full shadow">Айырмашылығы</div>
+                        <p class="mb-4"><span class="text-green-400">read()</span> &rarr; Файлды ретімен, тұрған жерінен оқиды.</p>
+                        <hr class="border-gray-600 my-2">
+                        <p><span class="text-orange-400">seek(n)</span> &rarr; Файлдың басынан санағанда n-ші орынға секіреді.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Example 1 -->
+            <div class="slide flex-col w-full" data-index="5">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">1-Мысал (readline қолдану)</h2>
+                
+                <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-4 w-full">
+                    <h3 class="font-bold text-blue-800 mb-2">Тапсырма:</h3>
+                    <p class="text-gray-700"><code>Input.txt</code> файлының 1-жолында әріптер, 2-жолында сандар берілген. 1-жолдың алғашқы 10 әрпін және 2-жолдың алғашқы 5 цифрын оқу керек.</p>
+                </div>
+
+                <div class="w-full">
+                    <div class="code-block text-sm md:text-base">
+<span class="text-gray-400"># Input.txt файлы алдын-ала құрылған деп есептеледі</span>
+<span class="text-pink-400">f</span> = <span class="text-yellow-300">open</span>(<span class="text-green-300">"Input.txt"</span>, <span class="text-green-300">"r"</span>)
+
+p = f.<span class="text-blue-300">readline</span>(<span class="text-orange-300">10</span>)  <span class="text-gray-400"># 1-жолдан 10 символ оқу</span>
+f.<span class="text-blue-300">readline</span>()      <span class="text-gray-400"># 1-жолдың қалғанын оқып, келесі жолға өту</span>
+h = f.<span class="text-blue-300">readline</span>(<span class="text-orange-300">5</span>)   <span class="text-gray-400"># 2-жолдан 5 символ оқу</span>
+
+<span class="text-yellow-300">print</span>(p)
+<span class="text-yellow-300">print</span>(h)
+f.<span class="text-blue-300">close</span>()
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Example 2 -->
+            <div class="slide flex-col w-full" data-index="6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">2-Мысал (seek және нәтиже)</h2>
+                
+                <div class="bg-purple-50 border border-purple-200 p-3 rounded-lg mb-3 w-full text-sm">
+                    <p><strong>Тапсырма:</strong> <code>Input.txt</code> файлындағы "abcdef..." жолының <strong>2-орнынан бастап 15 әріпті '*' символымен ауыстыр.</strong></p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 w-full">
+                    <div class="code-block text-xs md:text-sm">
+f = <span class="text-yellow-300">open</span>(<span class="text-green-300">"Input.txt"</span>, <span class="text-green-300">"w+"</span>) <span class="text-gray-400"># w+ режимі</span>
+f.<span class="text-blue-300">write</span>(<span class="text-green-300">"abcdefghijklmnopqrstuvwxyz"</span>)
+
+f.<span class="text-blue-300">seek</span>(<span class="text-orange-300">2</span>)      <span class="text-gray-400"># Меңзерді 2-ші орынға қою</span>
+f.<span class="text-blue-300">write</span>(<span class="text-green-300">"*"</span> * <span class="text-orange-300">15</span>) <span class="text-gray-400"># 15 жұлдызша жазу</span>
+
+f.<span class="text-blue-300">close</span>()
+                    </div>
+
+                    <div class="bg-gray-900 text-white p-4 rounded-lg flex flex-col justify-center">
+                        <h4 class="text-green-400 font-bold mb-2 underline">Нәтижесі (Output):</h4>
+                        <div class="mb-2">
+                            <span class="text-gray-400 text-xs">Бастапқы:</span><br>
+                            <span class="font-mono bg-gray-800 px-1">abcdefghijklmnopqrstuvwxyz</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-xs">Өзгерген соң:</span><br>
+                            <span class="font-mono bg-gray-800 px-1 text-yellow-300">ab***************rstuvwxyz</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 italic">(Алғашқы 'ab' [0 және 1 индекстер] қалады)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Task 1 -->
+            <div class="slide flex-col w-full" data-index="7">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">1-Практикалық тапсырма</h2>
+                <p class="text-gray-600 mb-4"><strong>Тапсырма (Оқулық, 113-бет):</strong> Үш, төрт және бес таңбалы сандар тізбегінен қосындыны табу. Сандар арасы бос орынмен бөлінген деп есептейміз.</p>
+                <p class="text-xs text-gray-500 mb-2">Мысалы: <code class="bg-gray-100">100 2000 30000</code> (Аралықтарында 1 бос орын бар)</p>
+
+                <div class="flex flex-col md:flex-row gap-4 w-full h-full">
+                    <div class="w-full md:w-1/3 space-y-2">
+                        <div class="bg-white p-3 rounded shadow text-sm border-l-4 border-blue-500">
+                            <strong>1.</strong> <code>read(3)</code>: 1-ші санды (3 таңбалы) оқимыз.
+                        </div>
+                        <div class="bg-white p-3 rounded shadow text-sm border-l-4 border-blue-500">
+                            <strong>2.</strong> <code>seek(4)</code>: Бос орынды тастап, 4-ші орынға секіреміз.
+                        </div>
+                        <div class="bg-white p-3 rounded shadow text-sm border-l-4 border-blue-500">
+                            <strong>3.</strong> <code>seek(9)</code>: Келесі бос орынды тастап, 3-ші санға секіреміз.
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-2/3 flex items-center">
+                        <div class="code-block text-xs md:text-sm w-full">
+fin = <span class="text-yellow-300">open</span>(<span class="text-green-300">"Input.txt"</span>, <span class="text-green-300">"r"</span>)
+a = <span class="text-yellow-300">int</span>(fin.<span class="text-blue-300">read</span>(<span class="text-orange-300">3</span>)) <span class="text-gray-400"># "100" оқылады</span>
+fin.<span class="text-blue-300">seek</span>(<span class="text-orange-300">4</span>)          <span class="text-gray-400"># " " (бос орын) аттап өтіледі</span>
+b = <span class="text-yellow-300">int</span>(fin.<span class="text-blue-300">read</span>(<span class="text-orange-300">4</span>)) <span class="text-gray-400"># "2000" оқылады</span>
+fin.<span class="text-blue-300">seek</span>(<span class="text-orange-300">9</span>)          <span class="text-gray-400"># Келесі бос орын аттап өтіледі</span>
+c = <span class="text-yellow-300">int</span>(fin.<span class="text-blue-300">read</span>(<span class="text-orange-300">5</span>)) <span class="text-gray-400"># "30000" оқылады</span>
+<span class="text-yellow-300">print</span>(a + b + c)
+fin.<span class="text-blue-300">close</span>()
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Task 2 -->
+            <div class="slide flex-col w-full" data-index="8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">2-Практикалық тапсырма</h2>
+                <div class="bg-green-50 p-4 rounded-lg border border-green-200 mb-4 w-full">
+                    <p class="font-bold text-green-800 mb-1">Тапсырма (Оқулық, 114-бет, 3-тапсырма):</p>
+                    <p class="text-gray-700 text-sm"><code>Input.txt</code> файлында <em>a, b, c, d</em> және <em>p</em> сандары бір жолда, бос орын арқылы берілген.</p>
+                    <p class="text-gray-700 text-sm mt-2">Есептеу: <code>((a + b) % p) * ((c - d) % p)</code></p>
+                </div>
+
+                <div class="w-full">
+                     <div class="code-block text-xs md:text-sm">
+f = <span class="text-yellow-300">open</span>(<span class="text-green-300">"Input.txt"</span>, <span class="text-green-300">"r"</span>)
+line = f.<span class="text-blue-300">readline</span>() <span class="text-gray-400"># Жолды тұтас оқу: "25 18 45 12 9"</span>
+f.<span class="text-blue-300">close</span>()
+
+s = line.<span class="text-blue-300">split</span>() <span class="text-gray-400"># Бос орын бойынша бөлу: ['25', '18', '45', '12', '9']</span>
+
+a = <span class="text-yellow-300">int</span>(s[<span class="text-orange-300">0</span>])
+b = <span class="text-yellow-300">int</span>(s[<span class="text-orange-300">1</span>])
+c = <span class="text-yellow-300">int</span>(s[<span class="text-orange-300">2</span>])
+d = <span class="text-yellow-300">int</span>(s[<span class="text-orange-300">3</span>])
+p = <span class="text-yellow-300">int</span>(s[<span class="text-orange-300">4</span>])
+
+res = ((a + b) % p) * ((c - d) % p)
+
+f_out = <span class="text-yellow-300">open</span>(<span class="text-green-300">"Output.txt"</span>, <span class="text-green-300">"w"</span>)
+f_out.<span class="text-blue-300">write</span>(<span class="text-yellow-300">str</span>(res))
+f_out.<span class="text-blue-300">close</span>()
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Conclusion -->
+            <div class="slide flex-col w-full text-center" data-index="9">
+                <h2 class="text-4xl font-extrabold text-gray-800 mb-8">Сабақ қорытындысы</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 w-full mb-10 text-left">
+                    <div class="bg-blue-600 text-white p-6 rounded-xl shadow-lg transform hover:-translate-y-1 transition duration-300">
+                        <div class="text-4xl mb-4"><i class="fas fa-glasses"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">readline(n)</h3>
+                        <p>Файлдан белгілі бір мөлшердегі символдарды оқуға ыңғайлы құрал.</p>
+                    </div>
+                    <div class="bg-purple-600 text-white p-6 rounded-xl shadow-lg transform hover:-translate-y-1 transition duration-300">
+                        <div class="text-4xl mb-4"><i class="fas fa-compass"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">seek(n)</h3>
+                        <p>Файл ішінде "еркін қозғалуға", яғни қалаған орыннан оқуға немесе жазуға мүмкіндік береді.</p>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-100 border-2 border-yellow-400 p-6 rounded-xl inline-block">
+                    <h3 class="text-xl font-bold text-yellow-800 mb-2"><i class="fas fa-home mr-2"></i>Үйге тапсырма</h3>
+                    <p class="text-yellow-900">Оқулықтың 114-бетіндегі "Досыма хат" тапсырмасын орындау (Файлдан оқу тақырыбы бойынша эссе жазу).</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer / Controls -->
+        <div class="bg-gray-100 p-4 border-t flex justify-between items-center z-10">
+            <button id="prevBtn" class="nav-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg shadow disabled:opacity-50">
+                <i class="fas fa-arrow-left mr-2"></i> Артқа
+            </button>
+            
+            <div class="hidden md:block text-gray-500 text-sm">
+                Меңзер пернелерін қолдануға болады &larr; &rarr;
+            </div>
+
+            <button id="nextBtn" class="nav-btn bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow">
+                Алға <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // Slide Logic
+        let currentSlide = 1;
+        const totalSlides = 9;
+        
+        const slideElements = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSlideSpan = document.getElementById('current-slide');
+        const progressBar = document.getElementById('progress-bar');
+
+        function updateSlide() {
+            // Hide all slides
+            slideElements.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            // Show current slide
+            const activeSlide = document.querySelector(`.slide[data-index="${currentSlide}"]`);
+            if (activeSlide) activeSlide.classList.add('active');
+
+            // Update UI text
+            currentSlideSpan.textContent = currentSlide;
+
+            // Update Progress Bar
+            const progress = (currentSlide / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Button states
+            prevBtn.disabled = currentSlide === 1;
+            
+            if (currentSlide === totalSlides) {
+                nextBtn.innerHTML = 'Аяқтау <i class="fas fa-check ml-2"></i>';
+                nextBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                nextBtn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
+            } else {
+                nextBtn.innerHTML = 'Алға <i class="fas fa-arrow-right ml-2"></i>';
+                nextBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                nextBtn.classList.replace('hover:bg-green-700', 'hover:bg-blue-700');
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        });
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                if (currentSlide < totalSlides) {
+                    currentSlide++;
+                    updateSlide();
+                }
+            } else if (e.key === 'ArrowLeft') {
+                if (currentSlide > 1) {
+                    currentSlide--;
+                    updateSlide();
+                }
+            }
+        });
+
+        // Initial setup
+        updateSlide();
+    </script>
+</body>
+</html>
